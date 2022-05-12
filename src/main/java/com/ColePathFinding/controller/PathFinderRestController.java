@@ -5,6 +5,8 @@ import java.util.Stack;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ProtoPathing.cole.MyList.ListType;
@@ -25,6 +27,11 @@ public class PathFinderRestController {
 			finalPath += pm.toString() + ",";
 		}
 		return finalPath;
+	}
+	
+	@PostMapping("/findpath")
+	String handel(@RequestBody String map) {
+		return map;
 	}
 	
 }
