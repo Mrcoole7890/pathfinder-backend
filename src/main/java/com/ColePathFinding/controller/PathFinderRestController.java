@@ -1,6 +1,7 @@
 package com.ColePathFinding.controller;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Stack;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,7 +32,20 @@ public class PathFinderRestController {
 	
 	@PostMapping("/findpath")
 	String handel(@RequestBody String map) {
-		return map;
+		ArrayList<String> mapArr = new ArrayList<String>();
+		for(String line: map.split("\n"))
+			mapArr.add(line);
+		
+		Stack<ProtoMap> pathToGoal = new ProtoSearchAgent(ListType.Stack, mapArr).getPathToGoal();
+		
+		String finalPath = new String();
+		finalPath += pathToGoal.get(0).getPlayerPosition()[0] + " " + pathToGoal.get(0).getPlayerPosition()[1] + ",";
+		finalPath += pathToGoal.get(0).getGoalPosition()[0] + " " + pathToGoal.get(0).getGoalPosition()[1] + ",";
+		for(ProtoMap pm: pathToGoal) {
+			finalPath += pm.toString() + ",";
+		}
+		
+		return finalPath;
 	}
 	
 }
